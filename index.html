@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+    attribute vec4 vPosition;
+    void main()
+    {
+        gl_Position = vPosition;
+    }
+    
+    
+    </script>
+    
+    <script id="fragment-shader" type="x-shader/x-fragment">
+    
+    
+
+    
+    precision mediump float;
+    uniform float time;
+    uniform vec2 resolution;
+
+    void main()
+    {
+        vec4 color;
+        
+        // Fá stöðluð hnit bútar (gl_FragCoord er í skjáhnitum)
+       
+        float x = gl_FragCoord.x / resolution.x;
+        float y = gl_FragCoord.y / resolution.y;
+        
+        float x1 = 2.0*x -  2.0*sin(time/100.0);
+        float y1 = 2.0*y - 2.0*sin(time/100.0);
+
+        float dd = 0.1 ;
+        float d = sqrt((x1 + dd) * (x1 + dd) + (y1 + dd) * (y1 + dd));
+
+        if (d < 0.1)
+        {
+            color = vec4(1.0, 1.0, 0.0, 1.0);
+        }
+        else {
+            color = vec4(0.0, 0.0, 1.0, 1.0);
+        }
+        
+
+          
+        gl_FragColor = color;
+    }
+
+
+</script>
+
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512"></canvas>
+</body>
+</html>
